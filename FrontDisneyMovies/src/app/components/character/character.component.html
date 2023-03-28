@@ -1,0 +1,233 @@
+<br><br><br>
+
+<div *ngIf="alertMessage" class="alert alert-danger d-flex justify-content-center">
+  <h5>{{ alertMessage }}</h5>
+</div>
+
+<div class="w3-display-inline-block">
+  <div class=" w3-card w3-border-bottom w3-border-light-grey">
+    <div class="w3-left w3-hide-small w3-border-bottom w3-border-light-grey">
+      <h3 class="w3-bar-item w3-button w3-border-light-grey w3-display-inline-block" (click)="showAllCharacters()" >Characters</h3>
+      <h3 class="w3-bar-item w3-button w3-border-light-grey w3-display-inline-block" (click)="createCharacter()">Create Character</h3>
+      <h3 class="w3-bar-item w3-button w3-border-light-grey w3-display-inline-block" style="cursor: help;">Search by:</h3>
+      <div class="w3-display-inline-block w3-right w3-border-bottom" style="padding-top: 16px;">
+        <select (change)="onSelectChange($event)">
+          <option value="default" >-----</option>
+          <option value="byName"  >Name</option>
+          <option value="byAge"   >Age</option>
+          <option value="byWeight">Weight</option>
+          <option value="byMovie" >Movie</option>
+        </select>
+        <div *ngIf="selectedOption != ''" style="display: inline-block;">
+          <div *ngIf="selectedOption === 'byName'"    style="display: inline-block;">
+            <input (keydown.enter)="showCharacterByName(nameInput.value)" #nameInput   type="text"   placeholder="Name">
+          </div>        
+          <div *ngIf="selectedOption === 'byAge'"     style="display:inline-block;">
+            <input (keydown.enter)="searchByAge(ageInput.value)"          #ageInput    type="number" placeholder="Age"    min="1">
+          </div>
+          <div *ngIf="selectedOption === 'byWeight'"  style="display:inline-block;">
+            <input (keydown.enter)="searchByWeight(weightInput.value)"    #weightInput type="number" placeholder="Weight" min="1">
+          </div>
+          <div *ngIf="selectedOption === 'byMovie'"   style="display:inline-block;">
+            <input (keydown.enter)="searchByMovie(movieInput.value)"      #movieInput  type="text"   placeholder="Movie">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<br><br><br>
+
+<div class="w3-row-padding">
+  
+  <div class="w3-col l3 m6 w3-margin-bottom" *ngFor="let characterResume of charactersResumeArray">
+    <div class="w3-display-container" style="cursor: pointer;" (click)="showCharacterByName(characterResume.getName())" >
+      <div class="w3-display-topleft w3-black w3-padding">{{ characterResume.getName() }}</div>
+      <img src="{{ characterResume.getImgUrl() }}" alt="Character" style="width:100%">
+    </div>
+  </div>
+
+</div>
+
+
+<!-- show specific character -->
+<div *ngIf="character != undefined">
+
+  <div class="w3-row-padding " >
+    <div class="w3-col l3 m6 w3-margin-bottom">
+      <img src="{{ character.getImgUrl() }}" alt="character poster" style="width:100%">
+      <h3>{{ character.getName() }}</h3>
+      <h6 class="w3-opacity">Age: {{ character.getAge() }}</h6>
+      <h6 class="w3-opacity">Weight: {{ character.getWeight() }}</h6>
+      <p>{{ character.getStory() }}</p>
+      <p><button (click)="updateCharacter()" class="w3-button w3-grey w3-block">Update</button></p>
+      <p><button (click)="deleteCharacterById(character.getIdCharacter())" class="w3-button w3-red w3-block">Delete</button></p>
+    </div>
+  
+    <!-- update character -->
+    <div class="w3-container w3-padding-32" *ngIf="flagUpdate == true" style="display: inline-block;">
+      <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Update Character</h3>
+      <p>Enter all the modified data, the fields not completed will remain as before</p>
+      <form [formGroup]="updateForm" (ngSubmit)="updateSubmit()" target="_blank">
+        <input formControlName="uName"   class="w3-input w3-section w3-border" type="text" placeholder="Name">
+        <input formControlName="uAge"    class="w3-input w3-section w3-border" type="number" min="1" placeholder="Age (minimum 1)">
+        <input formControlName="uWeight" class="w3-input w3-section w3-border" type="number" min="1" placeholder="Weight (minimum 1)">
+        <input formControlName="uImgUrl" class="w3-input w3-section w3-border" type="text" placeholder="Poster path">
+        <input formControlName="uStory"  class="w3-input w3-section w3-border" type="text" placeholder="Story">
+  
+        <button class="w3-button w3-black w3-section" type="submit" [disabled]="updateForm.invalid" [disabled]="updateForm.pristine">
+          <i class="fa fa-paper-plane"></i> Update
+        </button>
+        <button class="w3-button w3-red w3-section w3-right w3-margin-left" type="button" (click)="cancelUpdate()" >
+          <i class="fa fa-paper-plane"></i> Cancel
+        </button>
+      </form>
+      <!-- control name -->
+      <div *ngIf="uName.invalid && (uName.dirty || uName.touched)" class="alert">
+        <div *ngIf="uName.errors?.hasLeadingSpace" class="alert alert-danger">
+            Name cannot have a leading space.
+        </div>
+        <div *ngIf="uName.errors?.characterNameExist" class="alert alert-danger">
+            There is already a character with that name.
+        </div>
+      </div>
+      <!-- control age -->
+      <div *ngIf="uAge.invalid && (uAge.dirty || uAge.touched)" class="alert">
+        <div *ngIf="uAge.errors?.min" class="alert alert-danger">
+            The minimum age is 1.
+        </div>
+        <div *ngIf="uAge.errors?.hasLeadingSpace" class="alert alert-danger">
+            Age cannot have a leading space.
+        </div>
+        <div *ngIf="uAge.errors?.numbersOnly" class="alert alert-danger">
+            Age can only contain numbers.
+        </div>
+      </div>
+      <!-- control weight -->
+      <div *ngIf="uWeight.invalid && (uWeight.dirty || uWeight.touched)" class="alert">
+        <div *ngIf="uWeight.errors?.min" class="alert alert-danger">
+            The minimum weight is 1.
+        </div>
+        <div *ngIf="uWeight.errors?.numbersOnly" class="alert alert-danger">
+            Weight can only contain numbers.
+        </div>
+        <div *ngIf="uWeight.errors?.hasLeadingSpace" class="alert alert-danger">
+            Weight cannot have a leading space.
+        </div>
+      </div>
+      <!-- control ImgUrl -->
+      <div *ngIf="uImgUrl.invalid && (uImgUrl.dirty || uImgUrl.touched)" class="alert">
+        <div *ngIf="uImgUrl.errors?.hasLeadingSpace" class="alert alert-danger">
+            Poster path cannot have a leading space.
+        </div>
+      </div>
+      <!-- control story -->
+      <div *ngIf="uStory.invalid && (uStory.dirty || uStory.touched)" class="alert">
+        <div *ngIf="uStory.errors?.hasLeadingSpace" class="alert alert-danger">
+            Story cannot have a leading space.
+        </div>
+      </div>
+
+    </div>
+  
+  </div>
+
+  <div>
+    <!-- character movies -->
+    <div class=" w3-card w3-border-bottom w3-border-light-grey">
+      <div class="w3-left w3-hide-small w3-border-bottom w3-border-light-grey">
+        <h3 class="w3-bar-item w3-border-light-grey">Movies</h3>
+      </div>
+      <br><br>
+  
+      <div class="w3-row-padding">
+        <div class="w3-col l3 m6 w3-margin-bottom" *ngFor="let resume of moviesByCharacterArray">
+          <div class="w3-display-container">
+            <div style="cursor: pointer;" (click)="goToMovie(resume.getIdMovie())" class="w3-display-topleft w3-black w3-padding">{{ resume.getTittle() }}</div>
+            <div style="cursor: pointer;" (click)="goToMovie(resume.getIdMovie())" class="w3-display-topright w3-black w3-padding">{{ resume.getReleaseDate().toLocaleDateString() }}</div>
+            <img style="cursor: pointer;" (click)="goToMovie(resume.getIdMovie())" src="{{ resume.getImgUrl() }}" alt="Movie" style="width:100%">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- create character -->
+<div class="w3-container w3-padding-32" *ngIf="flagCreate == true" style="display: inline-block;">
+  <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Create Character</h3>
+  <p>please make sure to fill in each field, name and poster path cannot start with empty spaces and age and weight must be greater than 0</p>
+  <form [formGroup]="createForm" (ngSubmit)="createSubmit()" target="_blank">
+    <input formControlName="cName"    class="w3-input w3-section w3-border" type="text" placeholder="Name">
+    <input formControlName="cAge"     class="w3-input w3-section w3-border" type="text" placeholder="Age">
+    <input formControlName="cWeight"  class="w3-input w3-section w3-border" type="text" placeholder="Weight">
+    <input formControlName="cStory"   class="w3-input w3-section w3-border" type="text" placeholder="Story">
+    <input formControlName="cImgUrl"  class="w3-input w3-section w3-border" type="text" placeholder="Poster path">
+
+    <button class="w3-button w3-black w3-section" type="submit" [disabled]="createForm.invalid">
+      <i class="fa fa-paper-plane"></i> Create
+    </button>
+  </form>
+  <!-- control name -->
+  <div *ngIf="cName.invalid && (cName.dirty || cName.touched)" class="alert">
+    <div *ngIf="cName.errors?.required" class="alert alert-danger">
+        Name is required.
+    </div>
+    <div *ngIf="cName.errors?.hasLeadingSpace" class="alert alert-danger">
+        Name cannot have a leading space.
+    </div>
+    <div *ngIf="cName.errors?.characterNameExist" class="alert alert-danger">
+        There is already a character with that name.
+    </div>
+  </div>
+  <!-- control age -->
+  <div *ngIf="cAge.invalid && (cAge.dirty || cAge.touched)" class="alert">
+    <div *ngIf="cAge.errors?.required" class="alert alert-danger">
+        Age is required.
+    </div>
+    <div *ngIf="cAge.errors?.min" class="alert alert-danger">
+        The minimum age is 1.
+    </div>
+    <div *ngIf="cAge.errors?.hasLeadingSpace" class="alert alert-danger">
+        Age cannot have a leading space.
+    </div>
+    <div *ngIf="cAge.errors?.numbersOnly" class="alert alert-danger">
+        Age can only contain numbers.
+    </div>
+  </div>
+  <!-- control weight -->
+  <div *ngIf="cWeight.invalid && (cWeight.dirty || cWeight.touched)" class="alert">
+    <div *ngIf="cWeight.errors?.required" class="alert alert-danger">
+        Weight is required.
+    </div>
+    <div *ngIf="cWeight.errors?.min" class="alert alert-danger">
+        The minimum weight is 1.
+    </div>
+    <div *ngIf="cWeight.errors?.numbersOnly" class="alert alert-danger">
+        Weight can only contain numbers.
+    </div>
+    <div *ngIf="cWeight.errors?.hasLeadingSpace" class="alert alert-danger">
+        Weight cannot have a leading space.
+    </div>
+  </div>
+  <!-- control ImgUrl -->
+  <div *ngIf="cImgUrl.invalid && (cImgUrl.dirty || cImgUrl.touched)" class="alert">
+    <div *ngIf="cImgUrl.errors?.hasLeadingSpace" class="alert alert-danger">
+        Poster path cannot have a leading space.
+    </div>
+  </div>
+  <!-- control story -->
+  <div *ngIf="cStory.invalid && (cStory.dirty || cStory.touched)" class="alert">
+    <div *ngIf="cStory.errors?.required" class="alert alert-danger">
+        Story is required.
+    </div>
+    <div *ngIf="cStory.errors?.hasLeadingSpace" class="alert alert-danger">
+        Story cannot have a leading space.
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,17 @@
+
+<br>
+<div class="w3-container w3-padding-32" id="contact">
+  <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Log-in</h3>
+  <p>Please enter your email and password to verify your identity</p>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" target="_blank">
+    <input formControlName="email" class="w3-input w3-section w3-border" type="text" placeholder="Email">
+    <input formControlName="password" class="w3-input w3-section w3-border" type="password" placeholder="Subject">
+    <button class="w3-button w3-black w3-section" type="submit">
+      <i class="fa fa-paper-plane"></i> Log-in
+    </button>
+  </form>
+</div>
+
+<div *ngIf="alertMessage" class="alert alert-danger d-flex justify-content-center">
+  <h5>{{ alertMessage }}</h5>
+</div>

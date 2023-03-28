@@ -1,0 +1,18 @@
+
+<!-- Navbar (sit on top) -->
+<header>
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+      <a [routerLink]="['/movies']" class="w3-bar-item w3-button"><b>API</b> Disney</a>
+      <!-- Float links to the right. Hide them on small screens -->
+      <div class="w3-right w3-hide-small">
+        <a [routerLink]="['/auth/register']" class="w3-bar-item w3-button">Register</a>
+        <a [routerLink]="['/auth/logout']" class="w3-bar-item w3-button">Log-out</a>
+        <a [routerLink]="['/movies']" class="w3-bar-item w3-button">Movies</a>
+        <a [routerLink]="['/characters']" class="w3-bar-item w3-button">Characters</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<router-outlet></router-outlet>
