@@ -1,0 +1,702 @@
+{
+	"info": {
+		"_postman_id": "20de2d76-bcbe-4c17-85b3-1c07061993e6",
+		"name": "POSTMAN alkemy challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11176951"
+	},
+	"item": [
+		{
+			"name": "CHARACTERS",
+			"item": [
+				{
+					"name": "4) - CRUD",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imgUrl\" : \"\",\r\n    \"name\": \"Ariel\",\r\n    \"age\": 16,\r\n    \"weight\": 50,\r\n    \"story\": \"Ariel, es la princesa del mar.\",\r\n    \"movieIdList\": [14]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/characters",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"characters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "read (by id)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/characters/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"characters",
+										"14"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"idCharacter\": 14,\r\n    \"imgUrl\": \"\",\r\n    \"name\": \"ARIEL\",\r\n    \"age\": 15,\r\n    \"weight\": 40,\r\n    \"story\": \"Es la princesa del mar\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/characters/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"characters",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete (by id)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/characters/4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"characters",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "3) - listado de personajes (imagen y nombre)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/characters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6) - findByName/Age/Weight (una a la vez)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/characters?idMovie=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"characters"
+							],
+							"query": [
+								{
+									"key": "idMovie",
+									"value": "1"
+								},
+								{
+									"key": "name",
+									"value": "Manny",
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": "30",
+									"disabled": true
+								},
+								{
+									"key": "weight",
+									"value": "50",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MOVIE",
+			"item": [
+				{
+					"name": "9) - CRUD",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imgUrl\": \"\",\r\n    \"tittle\": \"La Sirenita\",\r\n    \"releaseDate\": \"1989-12-07\",\r\n    \"score\": 4,\r\n    \"genresIdList\": [3]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/movies/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"movies",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "read (by id)",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/movies?idMovie=14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"movies"
+									],
+									"query": [
+										{
+											"key": "idMovie",
+											"value": "14"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"idMovie\": 14,\r\n    \"imgUrl\": \"\",\r\n    \"tittle\": \"La Sirenita.\",\r\n    \"releaseDate\": \"2023-03-24\",\r\n    \"score\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/movies/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"movies",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/movies/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"movies",
+										"14"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "5) - movies by character (id character)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movies?idCharacter=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "idCharacter",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7) - movie list resume (imagen, titulo y fecha de estreno)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8) - movies  +  characters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movies/characters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies",
+								"characters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10) - findByTittle/GenreID/ASC|DESC",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movies?tittle=La era de hielo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "tittle",
+									"value": "La era de hielo"
+								},
+								{
+									"key": "genreId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addCharacterToMovie",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/movies?movieId=1&characterId=14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "movieId",
+									"value": "1"
+								},
+								{
+									"key": "characterId",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2) - USER",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": " ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userRoleId\": 1,\r\n    \"email\": \"nuevo@nuevo.com\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movie genre (extra)",
+			"item": [
+				{
+					"name": "get all genres",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/genres",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ger by genre",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/genres?genre=comedia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "comedia"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "1f2a4be3-d366-496c-b56f-0bc4a194d866",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/genres/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"genres",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "auth",
+			"value": "f5f6ab51-5cd6-437a-9b42-68501f2321cb"
+		}
+	]
+}
